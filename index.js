@@ -1,27 +1,26 @@
-const chromium = require("chrome-aws-lambda");
+var myLfunc = require('./src/myLambaFunction');
 
+// =============================================================
+// Main function aws template
+// =============================================================
 
 exports.handler = async (event, context) => {
+    console.log('in handler');
 
-     try {
-        const browser = await chromium.puppeteer.launch({
-            headless: true,
-            executablePath: await chromium.executablePath,
-            args: chromium.args
-        });
-
-        const page = await browser.newPage();
-        await page.goto("https://google.com");
-        console.log('we are in !!!');
-        // ...do something, screenshot etc
-
-        await browser.close();
-    } catch (err) {
-        console.log('there is an error');
-        console.log(err);
-        // ...handle error
+    // retrieve parameter
+    var googleid = null;
+    if (event.googleid == null){
+        googleid = "ChIJ4-COh16vyRIR9_nOvFNhLSI";
+    }else{
+        console.log('googleid ', googleid);
+        googleid = event["googleid"];
     }
+    console.log('googleid ', googleid);
+    
+    // call scraping function
+    myLfunc.MyLambdaFunction(googleid);
 
+    // end (not useful)
     return {
         statusCode: 200,
         body: JSON.stringify({
@@ -29,3 +28,4 @@ exports.handler = async (event, context) => {
         })
     };
 }
+

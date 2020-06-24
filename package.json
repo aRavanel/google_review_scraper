@@ -1,0 +1,11 @@
+{
+  "name": "google_review_scraper",
+  "version": "2.0.0",
+  "dependencies": {
+    "aws-sdk": "^2.702.0",
+    "chrome-aws-lambda": "3.x",
+    "puppeteer": "3.x",
+    "puppeteer-core": "^3.3.0",
+    "semver": "^7.3.2"
+  }
+}
